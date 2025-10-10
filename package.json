@@ -14,7 +14,8 @@
   "author": "MIT(Roger)",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^24.7.0",
+    "@types/express": "^4.17.3",
+    "@types/node": "^24.7.1",
     "nodemon": "^3.0.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
@@ -22,6 +23,8 @@
   },
   "dependencies": {
     "dotenv": "^16.0.0",
+    "ejs": "^3.1.10",
+    "express": "^4.17.3",
     "mongodb": "^3.2.6",
     "mongoose": "^6.2.9"
   }
