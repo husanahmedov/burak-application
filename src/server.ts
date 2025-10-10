@@ -1,1 +1,2 @@
-console.log("This is just a test");
+import dotenv from 'dotenv';
+dotenv.config()
