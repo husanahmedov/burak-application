@@ -1,17 +1,21 @@
-import express from 'express';
+import express from "express";
+import path from "path";
 
-import path from 'path';
+import router from "./router";
+import restaurantRouter from "./restaurantRouter";
 
 /** 1.ENTRANCE **/
-const app = express()
-app.use(express.static(path.join(__dirname, "public")))
+const app = express();
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
-app.use(express.json())
+app.use(express.json());
 
 /** 3.VIEWS **/
-app.set("views", path.join(__dirname, "views"))
-app.set("view engine", "ejs")
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
 
 /** 4.ROUTERS **/
+app.use("/admin", restaurantRouter); // BSSR -> Backend Server Side Rendering
+app.use("/", router); // React SPA Rest API
 
 export default app;
