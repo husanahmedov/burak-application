@@ -3,7 +3,7 @@ import path from "path";
 import morgan from "morgan";
 
 import router from "./router";
-import restaurantRouter from "./restaurantRouter";
+import routerAdmin from "./router-admin";
 import {MORGAN_FORMAT} from "./lib/config";
 
 /** 1.ENTRANCE **/
@@ -18,7 +18,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 /** 4.ROUTERS **/
-app.use("/admin", restaurantRouter); // BSSR -> Backend Server Side Rendering
+app.use("/admin", routerAdmin); // BSSR -> Backend Server Side Rendering
 app.use("/", router); // React SPA Rest API
 
 export default app;
