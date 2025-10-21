@@ -14,18 +14,37 @@
 
 // console.log(getHighestNumberIndex([1, 4, 30, 7, 60]));
 
+// /**
+//  * @param arr Number containing array
+//  * GetPositive()
+//  * **/
+//
+// const getPositive = (param: number[]): string => {
+//   let resultString: string = "";
+//   const changedValue = param.filter((value) => value > 0);
+//   changedValue.forEach((element: number) => {
+//     resultString += element.toString();
+//   });
+//   return resultString;
+// };
+//
+// getPositive([3, -7, -8, 9, 4]);
+
 /**
- * @param arr Number containing array
- * GetPositive()
+ * @param str String
+ * findLongestString()
  * **/
 
-const getPositive = (param: number[]): string => {
-  let resultString: string = "";
-  const changedValue = param.filter((value) => value > 0);
-  changedValue.forEach((element: number) => {
-    resultString += element.toString();
-  });
-  return resultString;
+const findLongestString = (str: string): string => {
+  // create variable array
+  // user for loop to access each word and store them to array variable
+  return str
+    .split(' ')
+    .reduce(
+      (longest, current) =>
+        current.length >= longest.length ? current : longest,
+      '',
+    );
 };
 
-getPositive([3, -7, -8, 9, 4]);
+console.log(findLongestString('I solved this algorithm with myself'));
