@@ -20,7 +20,11 @@ export enum Message {
     WRONG_PASSWORD = "Wrong password, please try again!"
 }
 
-class Errors extends global.Error {
+class Errors extends Error {
+    static standard = {
+        code: HttpCode.INTERNAL_SERVER_ERROR,
+        message: Message.SOMETHING_WENT_WRONG
+    }
     public code: HttpCode;
     public message: Message;
 
@@ -29,6 +33,8 @@ class Errors extends global.Error {
         this.code = statusCode;
         this.message = statusMessage;
     }
+
 }
+
 
 export default Errors;
