@@ -1,8 +1,8 @@
-import { Request, Response } from 'express';
-import { T } from '../lib/types/common';
+import {Request, Response} from 'express';
+import {T} from '../lib/types/common';
 
 import MemberService from '../models/Member.service';
-import { LoginInput, Member, MemberInput } from '../lib/member';
+import {AdminRequest, LoginInput, Member, MemberInput} from '../lib/member';
 
 const restaurantController: T = {};
 
@@ -27,28 +27,35 @@ restaurantController.getLogin = (request: Request, response: Response) => {
 };
 
 restaurantController.processSignup = async (
-  request: Request,
+  request: AdminRequest,
   response: Response,
 ) => {
   try {
     console.log('Signup Process Loaded');
     const newMember: MemberInput = request.body,
       result: Member = await memberService.processSignup(newMember);
-    response.send(result);
+    request.session.member = result;
+    request.session.save(function () {
+      response.send(result);
+    });
+    console.log(request.session);
   } catch (error) {
     response.send(error);
   }
 };
 
 restaurantController.processLogin = async (
-  request: Request,
+  request: AdminRequest,
   response: Response,
 ) => {
   try {
     console.log('Login Process Loaded');
     const input: LoginInput = request.body,
       result = await memberService.processLogin(input);
-    response.send(result);
+    request.session.member = result;
+    request.session.save(function () {
+      response.send(result);
+    });
   } catch (error) {
     console.log('You have an error', error);
     response.send(error);
