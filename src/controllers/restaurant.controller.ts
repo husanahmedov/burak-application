@@ -1,8 +1,9 @@
-import {Request, Response} from 'express';
-import {T} from '../lib/types/common';
+import { Request, Response } from 'express';
+import { T } from '../lib/types/common';
 
 import MemberService from '../models/Member.service';
-import {AdminRequest, LoginInput, Member, MemberInput} from '../lib/member';
+import { AdminRequest, LoginInput, Member, MemberInput } from '../lib/member';
+import { Message } from '../lib/Errors';
 
 const restaurantController: T = {};
 
@@ -56,6 +57,21 @@ restaurantController.processLogin = async (
     request.session.save(function () {
       response.send(result);
     });
+  } catch (error) {
+    console.log('You have an error', error);
+    response.send(error);
+  }
+};
+
+restaurantController.checkAuthSession = async (
+  request: AdminRequest,
+  response: Response,
+) => {
+  try {
+    if (request.session?.member)
+      response.send(`Welcome back ${request.session.member.memberNick}!`);
+    else
+      response.send(`<script>alert("${Message.NOT_AUTHENTICATED}")</script>`);
   } catch (error) {
     console.log('You have an error', error);
     response.send(error);
