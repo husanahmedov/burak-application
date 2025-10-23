@@ -1,50 +1,58 @@
-import mongoose, { Schema, STATES } from "mongoose";
+import mongoose, {Schema, STATES} from "mongoose";
 
-import { memberType, memberStatus } from "../lib/enum/member.enum";
+import {MemberType, MemberStatus} from "../lib/enum/member.enum";
 
 const memberSchema = new Schema(
-  {
-    memberType: {
-      type: String,
-      enum: memberType,
-      default: memberType.USER,
-    },
+    {
+        memberType: {
+            type: String,
+            enum: MemberType,
+            default: MemberType.USER,
+        },
 
-    memberStatus: {
-      type: String,
-      enum: memberStatus,
-      default: memberStatus.ACTIVE,
-    },
+        memberStatus: {
+            type: String,
+            enum: MemberStatus,
+            default: MemberStatus.ACTIVE,
+        },
 
-    memberNick: {
-      type: String,
-      index: { unique: true, sparse: true },
-      required: true,
-    },
+        memberNick: {
+            type: String,
+            index: {unique: true, sparse: true},
+            required: true,
+        },
 
-    memberPhone: {
-      type: String,
-      index: { unique: true, sparse: true },
-      required: true,
-    },
+        memberPhone: {
+            type: String,
+            index: {unique: true, sparse: true},
+            required: true,
+        },
 
-    memberPassword: {
-      type: String,
-      select: false,
-      required: true,
-    },
+        memberPassword: {
+            type: String,
+            select: false,
+            required: true,
+        },
 
-    memberPoints: {
-      type: Number,
-      default: 0,
-      required: true,
-    },
+        memberImage: {
+            type: String,
+        },
 
-    memberAddress: {
-      type: String,
+        memberPoints: {
+            type: Number,
+            default: 0,
+            required: true,
+        },
+
+        memberAddress: {
+            type: String,
+        },
+
+        memberDesc: {
+            type: String,
+        },
     },
-  },
-  { timestamps: true }
+    {timestamps: true}
 );
 
 export default mongoose.model("Member", memberSchema);

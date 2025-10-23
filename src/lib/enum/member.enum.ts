@@ -2,12 +2,12 @@
  * Enums
  *  **/
 
-export enum memberType {
+export enum MemberType {
   USER = "USER",
   RESTAURANT = "RESTAURANT",
 }
 
-export enum memberStatus {
+export enum MemberStatus {
   ACTIVE = "ACTIVE",
   BLOCK = "BLOCK",
   DELETE = "DELETE",

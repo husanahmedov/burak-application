@@ -1,5 +1,88 @@
+import { LoginInput, Member, MemberInput } from '../lib/member';
+import MemberModel from '../schema/Member.model';
+import Errors, { HttpCode, Message } from '../lib/Errors';
+import { MemberType } from '../lib/enum/member.enum';
+
+import * as bcrypt from 'bcryptjs';
+
 class MemberService {
-  constructor() {}
+  private readonly memberModel;
+
+  constructor() {
+    this.memberModel = MemberModel;
+  }
+
+  // SPA
+
+  public async signup(input: MemberInput): Promise<Member> {
+    const salt = await bcrypt.genSalt(); // random string
+    input.memberPassword = await bcrypt.hash(input.memberPassword, salt);
+    try {
+      const result = await this.memberModel.create(input);
+      result.memberPassword = '';
+      return result.toJSON();
+    } catch (error) {
+      console.error('Error creating user: ', error);
+      throw new Errors(HttpCode.BAD_REQUEST, Message.USED_NICK_PHONE);
+    }
+  }
+
+  public async login(input: LoginInput): Promise<Member> {
+    const member = await this.memberModel
+      .findOne(
+        { memberNick: input.memberNick },
+        { memberNick: 1, memberPassword: 1 },
+      )
+      .exec();
+    if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
+    const isMatch = await bcrypt.compare(
+      input.memberPassword,
+      member.memberPassword,
+    );
+    if (!isMatch)
+      throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
+    return await this.memberModel.findById(member._id).lean().exec();
+  }
+
+  // SSR
+
+  public async processSignup(input: MemberInput): Promise<Member> {
+    input.memberType = MemberType.RESTAURANT;
+    const exists = await this.memberModel
+      .findOne({ memberType: MemberType.RESTAURANT })
+      .exec();
+
+    if (exists) throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
+
+    const salt = await bcrypt.genSalt(); // random string
+    input.memberPassword = await bcrypt.hash(input.memberPassword, salt);
+
+    try {
+      const result = await this.memberModel.create(input);
+      result.memberPassword = '';
+      return result;
+    } catch (error) {
+      throw new Errors(HttpCode.BAD_REQUEST, Message.CREATE_FAILED);
+    }
+  }
+
+  public async processLogin(input: LoginInput): Promise<Member> {
+    const member = await this.memberModel
+      .findOne(
+        { memberNick: input.memberNick },
+        { memberNick: 1, memberPassword: 1 },
+      )
+      .exec();
+    if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
+    const isMatch = await bcrypt.compare(
+      input.memberPassword,
+      member.memberPassword,
+    );
+    // const isMatch = input.memberPassword === member.memberPassword
+    if (!isMatch)
+      throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
+    return await this.memberModel.findById(member._id).exec();
+  }
 }
 
 export default MemberService;
