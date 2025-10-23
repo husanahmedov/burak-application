@@ -1,9 +1,9 @@
-import { Request, Response } from 'express';
-import { T } from '../lib/types/common';
+import {Request, Response} from 'express';
+import {T} from '../lib/types/common';
 
 import MemberService from '../models/Member.service';
-import { AdminRequest, LoginInput, Member, MemberInput } from '../lib/member';
-import { Message } from '../lib/Errors';
+import {AdminRequest, LoginInput, Member, MemberInput} from '../lib/member';
+import Errors, {Message} from '../lib/Errors';
 
 const restaurantController: T = {};
 
@@ -24,6 +24,7 @@ restaurantController.getLogin = (request: Request, response: Response) => {
     response.render('login');
   } catch (error) {
     console.log('You have an error', error);
+    response.redirect('/');
   }
 };
 
@@ -41,7 +42,9 @@ restaurantController.processSignup = async (
     });
     console.log(request.session);
   } catch (error) {
-    response.send(error);
+    const message =
+      error instanceof Errors ? error.message : Message.SOMETHING_WENT_WRONG;
+    response.send(`<script>alert("${message}")</script>`);
   }
 };
 
@@ -59,7 +62,9 @@ restaurantController.processLogin = async (
     });
   } catch (error) {
     console.log('You have an error', error);
-    response.send(error);
+    const message =
+      error instanceof Errors ? error.message : Message.SOMETHING_WENT_WRONG;
+    response.send(`<script>alert("${message}")</script>`);
   }
 };
 
@@ -75,6 +80,21 @@ restaurantController.checkAuthSession = async (
   } catch (error) {
     console.log('You have an error', error);
     response.send(error);
+  }
+};
+
+restaurantController.logout = async (
+  request: AdminRequest,
+  response: Response,
+) => {
+  try {
+    console.log('logout');
+    request.session.destroy(function () {
+      response.redirect('/admin');
+    });
+  } catch (error) {
+    console.log('Error logout: ', error);
+    response.redirect('/admin');
   }
 };
 
