@@ -1,9 +1,9 @@
-import {Request, Response} from 'express';
-import {T} from '../lib/types/common';
+import { Request, Response } from 'express';
+import { T } from '../lib/types/common';
 
 import MemberService from '../models/Member.service';
-import {AdminRequest, LoginInput, Member, MemberInput} from '../lib/member';
-import Errors, {Message} from '../lib/Errors';
+import { AdminRequest, LoginInput, Member, MemberInput } from '../lib/member';
+import Errors, { Message } from '../lib/Errors';
 
 const restaurantController: T = {};
 
