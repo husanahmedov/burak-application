@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import router from './router';
 import routerAdmin from './router-admin';
 import { MORGAN_FORMAT } from './lib/config';
+import { T } from './lib/types/common';
 
 import session from 'express-session';
 import ConnectMongoDB from 'connect-mongodb-session';
@@ -33,6 +34,13 @@ app.use(
     saveUninitialized: true,
   }),
 );
+
+app.use(function (request, response, next) {
+  const sessionInstance = request.session as T;
+  response.locals.member = sessionInstance.member;
+  next();
+});
+
 /** 3.VIEWS **/
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

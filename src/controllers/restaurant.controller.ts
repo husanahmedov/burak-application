@@ -1,9 +1,10 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { T } from '../lib/types/common';
 
 import MemberService from '../models/Member.service';
 import { AdminRequest, LoginInput, Member, MemberInput } from '../lib/member';
 import Errors, { Message } from '../lib/Errors';
+import { MemberType } from '../lib/enum/member.enum';
 
 const restaurantController: T = {};
 
@@ -100,6 +101,22 @@ restaurantController.logout = async (
 
 restaurantController.getSignup = (request: Request, response: Response) => {
   response.render('signup.ejs');
+};
+
+restaurantController.verifyRestaurant = (
+  request: AdminRequest,
+  response: Response,
+  next: NextFunction,
+) => {
+  if (request.session?.member?.memberType === MemberType.RESTAURANT) {
+    request.member = request.session.member;
+    next();
+  } else {
+    const message = Message.NOT_AUTHENTICATED;
+    response.send(
+      `<script>alert("${message}"); window.location.replace("/admin/login");</script>`,
+    );
+  }
 };
 
 export default restaurantController;
