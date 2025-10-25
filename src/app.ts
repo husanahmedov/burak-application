@@ -3,8 +3,8 @@ import path from 'path';
 import morgan from 'morgan';
 import router from './router';
 import routerAdmin from './router-admin';
-import {MORGAN_FORMAT} from './lib/config';
-import {T} from './lib/types/common';
+import { MORGAN_FORMAT } from './lib/config';
+import { T } from './lib/types/common';
 
 import session from 'express-session';
 import ConnectMongoDB from 'connect-mongodb-session';

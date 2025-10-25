@@ -24,6 +24,7 @@ productController.createNewProduct = async (
 ) => {
   try {
     console.log('Create new product page');
+    response.send('DONE!');
   } catch (error) {
     console.log('Error is occurring: ', error);
     if (error instanceof Errors) response.status(error.code).json(error);
