@@ -35,8 +35,10 @@ restaurantController.processSignup = async (
 ) => {
   try {
     console.log('Signup Process Loaded');
-    const newMember: MemberInput = request.body,
-      result: Member = await memberService.processSignup(newMember);
+    const newMember: MemberInput = request.body;
+    newMember.memberImage = request.file?.path;
+    newMember.memberType = MemberType.RESTAURANT;
+    const result: Member = await memberService.processSignup(newMember);
     request.session.member = result;
     request.session.save(function () {
       response.send(result);
@@ -55,11 +57,11 @@ restaurantController.processLogin = async (
 ) => {
   try {
     console.log('Login Process Loaded');
-    const input: LoginInput = request.body,
-      result = await memberService.processLogin(input);
+    const input: LoginInput = request.body;
+    const result = await memberService.processLogin(input);
     request.session.member = result;
     request.session.save(function () {
-      response.send(result);
+      response.redirect('/admin/product/all');
     });
   } catch (error) {
     console.log('You have an error', error);

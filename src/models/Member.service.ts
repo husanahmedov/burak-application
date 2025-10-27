@@ -47,7 +47,6 @@ class MemberService {
   // SSR
 
   public async processSignup(input: MemberInput): Promise<Member> {
-    input.memberType = MemberType.RESTAURANT;
     const exists = await this.memberModel
       .findOne({ memberType: MemberType.RESTAURANT })
       .exec();
