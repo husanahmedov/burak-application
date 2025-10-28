@@ -41,7 +41,7 @@ restaurantController.processSignup = async (
     const result: Member = await memberService.processSignup(newMember);
     request.session.member = result;
     request.session.save(function () {
-      response.send(result);
+      response.redirect('/admin/product/all');
     });
     console.log(request.session);
   } catch (error) {
