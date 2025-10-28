@@ -4,23 +4,23 @@ import Errors from '../lib/Errors';
 import { HttpCode, Message } from '../lib/Errors';
 import { ProductInput } from '../lib/types/products';
 import { AdminRequest } from '../lib/member';
-import productModel from '../schema/Product.model';
+import ProductService from '../models/Product.service';
 
-const productService = new productModel();
+const productService = new ProductService();
 
 const productController: T = {};
 
-productController.getAllProducts = async (
-  request: Request,
-  response: Response,
-) => {
+productController.getAllProducts = async (req: Request, res: Response) => {
   try {
-    console.log('All Products page');
-    response.render('products');
-  } catch (error) {
-    console.log('Error is occurring: ', error);
-    if (error instanceof Errors) response.status(error.code).json(error);
-    else response.status(Errors.standard.code).json(Errors.standard);
+    console.log('getAllProducts');
+    const data = await productService.getAllProducts();
+    console.log('data:', data);
+
+    res.render('products', { products: data });
+  } catch (err) {
+    console.log('Error, getAllProducts:', err);
+    if (err instanceof Errors) res.status(err.code).json(err);
+    else res.status(Errors.standard.code).json(Errors.standard);
   }
 };
 
