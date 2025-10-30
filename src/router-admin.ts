@@ -42,4 +42,11 @@ routerAdmin
     productController.updateChosenProduct,
   );
 
+// USERS
+routerAdmin.get(
+  '/user/all',
+  restaurantController.verifyRestaurant,
+  restaurantController.getUsers,
+);
+
 export default routerAdmin;

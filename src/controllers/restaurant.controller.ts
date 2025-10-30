@@ -71,6 +71,20 @@ restaurantController.processLogin = async (
   }
 };
 
+restaurantController.getUsers = async (
+  request: Request,
+  response: Response,
+) => {
+  try {
+    console.log('getUsers Page Loaded');
+    const result = await memberService.getUsers();
+    response.render('users', { users: result });
+  } catch (error) {
+    console.log('You have an error', error);
+    response.redirect('/admin/login');
+  }
+};
+
 restaurantController.checkAuthSession = async (
   request: AdminRequest,
   response: Response,
