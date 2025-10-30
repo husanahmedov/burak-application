@@ -48,20 +48,26 @@
 // };
 //
 // console.log(findLongestString('I solved this algorithm with myself'));
+//
+// interface NumberSquare {
+//   number: number;
+//   square: number;
+// }
+//
+// function getSquareNumbers(numbers: number[]): NumberSquare[] {
+//   return numbers.map((num: number) => {
+//     return {
+//       number: num,
+//       square: num * num,
+//     };
+//   });
+// }
+//
+// const numbersArray: number[] = [1, 2, 3, 5, 10];
+// const squareObjects: NumberSquare[] = getSquareNumbers(numbersArray);
 
-interface NumberSquare {
-  number: number;
-  square: number;
-}
+const isPalindrome = (s: string): boolean =>
+  s.toLowerCase() === s.toLowerCase().split('').reverse().join('');
 
-function getSquareNumbers(numbers: number[]): NumberSquare[] {
-  return numbers.map((num: number) => {
-    return {
-      number: num,
-      square: num * num,
-    };
-  });
-}
-
-const numbersArray: number[] = [1, 2, 3, 5, 10];
-const squareObjects: NumberSquare[] = getSquareNumbers(numbersArray);
+console.log(isPalindrome('dad')); // true
+console.log(isPalindrome('dada')); // false
