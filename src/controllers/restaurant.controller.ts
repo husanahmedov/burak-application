@@ -3,7 +3,7 @@ import { T } from '../lib/types/common';
 
 import MemberService from '../models/Member.service';
 import { AdminRequest, LoginInput, Member, MemberInput } from '../lib/member';
-import Errors, { Message } from '../lib/Errors';
+import Errors, { HttpCode, Message } from '../lib/Errors';
 import { MemberType } from '../lib/enum/member.enum';
 
 const restaurantController: T = {};
@@ -35,11 +35,13 @@ restaurantController.processSignup = async (
 ) => {
   try {
     console.log('Signup Process Loaded');
-    const newMember: MemberInput = request.body,
-      result: Member = await memberService.processSignup(newMember);
+    const newMember: MemberInput = request.body;
+    newMember.memberImage = request.file?.path;
+    newMember.memberType = MemberType.RESTAURANT;
+    const result: Member = await memberService.processSignup(newMember);
     request.session.member = result;
     request.session.save(function () {
-      response.send(result);
+      response.redirect('/admin/product/all');
     });
     console.log(request.session);
   } catch (error) {
@@ -55,17 +57,46 @@ restaurantController.processLogin = async (
 ) => {
   try {
     console.log('Login Process Loaded');
-    const input: LoginInput = request.body,
-      result = await memberService.processLogin(input);
+    const input: LoginInput = request.body;
+    const result = await memberService.processLogin(input);
     request.session.member = result;
     request.session.save(function () {
-      response.send(result);
+      response.redirect('/admin/product/all');
     });
   } catch (error) {
     console.log('You have an error', error);
     const message =
       error instanceof Errors ? error.message : Message.SOMETHING_WENT_WRONG;
     response.send(`<script>alert("${message}")</script>`);
+  }
+};
+
+restaurantController.getUsers = async (
+  request: Request,
+  response: Response,
+) => {
+  try {
+    console.log('getUsers Page Loaded');
+    const result = await memberService.getUsers();
+    response.render('users', { users: result });
+  } catch (error) {
+    console.log('You have an error', error);
+    response.redirect('/admin/login');
+  }
+};
+
+restaurantController.updateChosenUser = async (
+  request: Request,
+  response: Response,
+) => {
+  try {
+    console.log('getUsers Page Loaded');
+    const result = await memberService.updateChosenMember(request.body);
+    response.status(HttpCode.OK).json({ data: result });
+  } catch (error) {
+    console.log('You have an error', error);
+    if (error instanceof Errors) response.status(error.code).json(error);
+    else response.status(Errors.standard.code).json(Errors.standard);
   }
 };
 

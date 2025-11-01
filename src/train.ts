@@ -49,23 +49,19 @@
 //
 // console.log(findLongestString('I solved this algorithm with myself'));
 
-/**
- * @param str String
- * countVowels()
- * K-TASK
- * **/
+interface NumberSquare {
+  number: number;
+  square: number;
+}
 
-const countVowels = (str: string): string => {
-  const vowels: string[] = ['a', 'e', 'i', 'o', 'u'];
-  let countVowels: number = 0;
-  for (let x = 0; x < vowels.length; x++) {
-    for (let y = 0; y < str.length; y++) {
-      if (vowels[x] === str[y]) {
-        countVowels++;
-      }
-    }
-  }
-  return `Bu stringda ${countVowels} ta unli harf bor`;
-};
+function getSquareNumbers(numbers: number[]): NumberSquare[] {
+  return numbers.map((num: number) => {
+    return {
+      number: num,
+      square: num * num,
+    };
+  });
+}
 
-console.log(countVowels('Noutbuk uchun test'));
+const numbersArray: number[] = [1, 2, 3, 5, 10];
+const squareObjects: NumberSquare[] = getSquareNumbers(numbersArray);
