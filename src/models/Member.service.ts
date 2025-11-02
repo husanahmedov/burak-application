@@ -37,13 +37,13 @@ class MemberService {
     const member = await this.memberModel
       .findOne(
         { memberNick: input.memberNick },
-        { memberNick: 1, memberPassword: 1 },
+        { memberNick: 1, memberPassword: 1 }
       )
       .exec();
     if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
     const isMatch = await bcrypt.compare(
       input.memberPassword,
-      member.memberPassword,
+      member.memberPassword
     );
     if (!isMatch)
       throw new Errors(HttpCode.UNAUTHORIZED, Message.WRONG_PASSWORD);
@@ -75,13 +75,13 @@ class MemberService {
     const member = await this.memberModel
       .findOne(
         { memberNick: input.memberNick },
-        { memberNick: 1, memberPassword: 1 },
+        { memberNick: 1, memberPassword: 1 }
       )
       .exec();
     if (!member) throw new Errors(HttpCode.NOT_FOUND, Message.NO_MEMBER_NICK);
     const isMatch = await bcrypt.compare(
       input.memberPassword,
-      member.memberPassword,
+      member.memberPassword
     );
     // const isMatch = input.memberPassword === member.memberPassword
     if (!isMatch)
@@ -104,7 +104,7 @@ class MemberService {
       input,
       {
         new: true,
-      },
+      }
     );
     if (!result) throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED);
     return result;

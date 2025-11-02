@@ -31,13 +31,14 @@ restaurantController.getLogin = (request: Request, response: Response) => {
 
 restaurantController.processSignup = async (
   request: AdminRequest,
-  response: Response,
+  response: Response
 ) => {
   try {
     console.log('Signup Process Loaded');
     const newMember: MemberInput = request.body;
     newMember.memberImage = request.file?.path;
     newMember.memberType = MemberType.RESTAURANT;
+
     const result: Member = await memberService.processSignup(newMember);
     request.session.member = result;
     request.session.save(function () {
@@ -47,13 +48,15 @@ restaurantController.processSignup = async (
   } catch (error) {
     const message =
       error instanceof Errors ? error.message : Message.SOMETHING_WENT_WRONG;
+    console.log(error);
+
     response.send(`<script>alert("${message}")</script>`);
   }
 };
 
 restaurantController.processLogin = async (
   request: AdminRequest,
-  response: Response,
+  response: Response
 ) => {
   try {
     console.log('Login Process Loaded');
@@ -73,7 +76,7 @@ restaurantController.processLogin = async (
 
 restaurantController.getUsers = async (
   request: Request,
-  response: Response,
+  response: Response
 ) => {
   try {
     console.log('getUsers Page Loaded');
@@ -87,7 +90,7 @@ restaurantController.getUsers = async (
 
 restaurantController.updateChosenUser = async (
   request: Request,
-  response: Response,
+  response: Response
 ) => {
   try {
     console.log('getUsers Page Loaded');
@@ -102,7 +105,7 @@ restaurantController.updateChosenUser = async (
 
 restaurantController.checkAuthSession = async (
   request: AdminRequest,
-  response: Response,
+  response: Response
 ) => {
   try {
     if (request.session?.member)
@@ -117,7 +120,7 @@ restaurantController.checkAuthSession = async (
 
 restaurantController.logout = async (
   request: AdminRequest,
-  response: Response,
+  response: Response
 ) => {
   try {
     console.log('logout');
@@ -137,7 +140,7 @@ restaurantController.getSignup = (request: Request, response: Response) => {
 restaurantController.verifyRestaurant = (
   request: AdminRequest,
   response: Response,
-  next: NextFunction,
+  next: NextFunction
 ) => {
   if (request.session?.member?.memberType === MemberType.RESTAURANT) {
     request.member = request.session.member;
@@ -145,7 +148,7 @@ restaurantController.verifyRestaurant = (
   } else {
     const message = Message.NOT_AUTHENTICATED;
     response.send(
-      `<script>alert("${message}"); window.location.replace("/admin/login");</script>`,
+      `<script>alert("${message}"); window.location.replace("/admin/login");</script>`
     );
   }
 };
