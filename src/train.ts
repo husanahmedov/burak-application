@@ -66,8 +66,18 @@
 // const numbersArray: number[] = [1, 2, 3, 5, 10];
 // const squareObjects: NumberSquare[] = getSquareNumbers(numbersArray);
 
-const isPalindrome = (s: string): boolean =>
-  s.toLowerCase() === s.toLowerCase().split('').reverse().join('');
+// const isPalindrome = (s: string): boolean =>
+//   s.toLowerCase() === s.toLowerCase().split('').reverse().join('');
 
-console.log(isPalindrome('dad')); // true
-console.log(isPalindrome('dada')); // false
+// console.log(isPalindrome('dad')); // true
+// console.log(isPalindrome('dada')); // false
+
+const calculateSumOfNumbers = (param: any[]): number => {
+  let result: number = 0;
+  param.forEach((element) => {
+    typeof element === 'number' ? (result += element) : '';
+  });
+  return result;
+};
+
+console.log(calculateSumOfNumbers([4, 5, 'salom', { number: 10 }, 4]));
