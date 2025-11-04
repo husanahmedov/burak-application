@@ -72,12 +72,20 @@
 // console.log(isPalindrome('dad')); // true
 // console.log(isPalindrome('dada')); // false
 
-const calculateSumOfNumbers = (param: any[]): number => {
-  let result: number = 0;
-  param.forEach((element) => {
-    typeof element === 'number' ? (result += element) : '';
-  });
-  return result;
-};
+// const calculateSumOfNumbers = (param: any[]): number => {
+//   let result: number = 0;
+//   param.forEach((element) => {
+//     typeof element === 'number' ? (result += element) : '';
+//   });
+//   return result;
+// };
 
-console.log(calculateSumOfNumbers([4, 5, 'salom', { number: 10 }, 4]));
+// console.log(calculateSumOfNumbers([4, 5, 'salom', { number: 10 }, 4]));
+
+function objectToArray<T extends Record<string, any>>(
+  param: T
+): [string, T[keyof T]][] {
+  return Object.entries(param);
+}
+
+console.log(objectToArray({ a: 10, b: 20 }));
