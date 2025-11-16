@@ -82,11 +82,25 @@
 
 // console.log(calculateSumOfNumbers([4, 5, 'salom', { number: 10 }, 4]));
 
-function missingNumberFunc(nums: number[]): number {
-  const n = nums.length;
-  const expectedSum = (n * (n + 1)) / 2;
-  const actualSum = nums.reduce((acc, num) => acc + num, 0);
-  return expectedSum - actualSum;
+// function missingNumberFunc(nums: number[]): number {
+//   const n = nums.length;
+//   const expectedSum = (n * (n + 1)) / 2;
+//   const actualSum = nums.reduce((acc, num) => acc + num, 0);
+//   return expectedSum - actualSum;
+// }
+
+// console.log(missingNumberFunc([3, 0, 1]));
+
+function mergeSortedArrays(arr1: number[], arr2: number[]): number[] {
+  let arr: number[] = [];
+  arr1.forEach((a: number) => {
+    arr.push(a);
+  });
+  arr2.forEach((a: number) => {
+    arr.push(a);
+  });
+
+  return arr.sort((a, b) => a - b);
 }
 
-console.log(missingNumberFunc([3, 0, 1]));
+console.log(mergeSortedArrays([0, 2, 0], [1, 3, 0, 0]));
