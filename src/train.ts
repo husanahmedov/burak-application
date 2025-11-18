@@ -91,16 +91,29 @@
 
 // console.log(missingNumberFunc([3, 0, 1]));
 
-function mergeSortedArrays(arr1: number[], arr2: number[]): number[] {
-  let arr: number[] = [];
-  arr1.forEach((a: number) => {
-    arr.push(a);
-  });
-  arr2.forEach((a: number) => {
-    arr.push(a);
-  });
+// function mergeSortedArrays(arr1: number[], arr2: number[]): number[] {
+//   let arr: number[] = [];
+//   arr1.forEach((a: number) => {
+//     arr.push(a);
+//   });
+//   arr2.forEach((a: number) => {
+//     arr.push(a);
+//   });
 
-  return arr.sort((a, b) => a - b);
+//   return arr.sort((a, b) => a - b);
+// }
+
+// console.log(mergeSortedArrays([0, 2, 0], [1, 3, 0, 0]));
+
+function sumOdds(numbers: number): number {
+  let sum: number = 0;
+  for (let i = 1; i < numbers; i += 1) {
+    if (i % 2 !== 0) {
+      sum++;
+    }
+  }
+  return sum;
 }
 
-console.log(mergeSortedArrays([0, 2, 0], [1, 3, 0, 0]));
+console.log(sumOdds(11));
+console.log(sumOdds(9));
