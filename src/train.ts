@@ -105,15 +105,27 @@
 
 // console.log(mergeSortedArrays([0, 2, 0], [1, 3, 0, 0]));
 
-function sumOdds(numbers: number): number {
-  let sum: number = 0;
-  for (let i = 1; i < numbers; i += 1) {
-    if (i % 2 !== 0) {
-      sum++;
-    }
+// function sumOdds(numbers: number): number {
+//   let sum: number = 0;
+//   for (let i = 1; i < numbers; i += 1) {
+//     if (i % 2 !== 0) {
+//       sum++;
+//     }
+//   }
+//   return sum;
+// }
+
+// console.log(sumOdds(11));
+// console.log(sumOdds(9));
+
+function countChars(str: string): Record<string, number> {
+  const result: Record<string, number> = {};
+
+  for (const char of str) {
+    result[char] = (result[char] || 0) + 1;
   }
-  return sum;
+
+  return result;
 }
 
-console.log(sumOdds(11));
-console.log(sumOdds(9));
+console.log(countChars('hello')); // {h: 1, e: 1, l: 2, o: 1}
