@@ -20,6 +20,7 @@ export enum Message {
   WRONG_PASSWORD = 'Wrong password, please try again!',
 
   NOT_AUTHENTICATED = 'Please go to login page',
+  TOKEN_CREATION_FAILED = 'Token creation is failed!',
 }
 
 class Errors extends Error {

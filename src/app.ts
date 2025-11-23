@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import morgan from 'morgan';
 import router from './router';
+import cookieParser from 'cookie-parser';
 import routerAdmin from './router-admin';
 import { MORGAN_FORMAT } from './lib/config';
 import { T } from './lib/types/common';
@@ -20,6 +21,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
 app.use(morgan(MORGAN_FORMAT));
 
 /** 2.SESSIONS **/
@@ -32,7 +34,7 @@ app.use(
     store: store,
     resave: true,
     saveUninitialized: true,
-  }),
+  })
 );
 
 app.use(function (request, response, next) {
