@@ -4,7 +4,7 @@ import { Request } from 'express';
 import { Session } from 'express-session';
 
 export interface Member {
-  __id: ObjectId;
+  _id: ObjectId;
   memberType: MemberType;
   memberStatus: MemberStatus;
   memberNick: string;
