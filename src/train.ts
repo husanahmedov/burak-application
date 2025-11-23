@@ -118,14 +118,28 @@
 // console.log(sumOdds(11));
 // console.log(sumOdds(9));
 
-function countChars(str: string): Record<string, number> {
-  const result: Record<string, number> = {};
+// function countChars(str: string): Record<string, number> {
+//   const result: Record<string, number> = {};
 
-  for (const char of str) {
-    result[char] = (result[char] || 0) + 1;
+//   for (const char of str) {
+//     result[char] = (result[char] || 0) + 1;
+//   }
+
+//   return result;
+// }
+
+// console.log(countChars('hello')); // {h: 1, e: 1, l: 2, o: 1}
+
+function chunkArray(array: number[] | string[], size: number) {
+  const result = [];
+
+  for (let i = 0; i < array.length; i += size) {
+    result.push(array.slice(i, i + size));
   }
 
   return result;
 }
 
-console.log(countChars('hello')); // {h: 1, e: 1, l: 2, o: 1}
+console.log(chunkArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 3));
+
+console.log(chunkArray(['a', 'b', 'c', 'd', 'e', 'f'], 3));
