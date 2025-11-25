@@ -130,16 +130,39 @@
 
 // console.log(countChars('hello')); // {h: 1, e: 1, l: 2, o: 1}
 
-function chunkArray(array: number[] | string[], size: number) {
-  const result = [];
+// function chunkArray(array: number[] | string[], size: number) {
+//   const result = [];
 
-  for (let i = 0; i < array.length; i += size) {
-    result.push(array.slice(i, i + size));
+//   for (let i = 0; i < array.length; i += size) {
+//     result.push(array.slice(i, i + size));
+//   }
+
+//   return result;
+// }
+
+// console.log(chunkArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 3));
+
+// console.log(chunkArray(['a', 'b', 'c', 'd', 'e', 'f'], 3));
+
+function countOccurrences(obj: any, key: string): number {
+  let count = 0;
+
+  for (const prop in obj) {
+    if (prop === key) {
+      count++;
+    }
+
+    if (typeof obj[prop] === 'object' && obj[prop] !== null) {
+      count += countOccurrences(obj[prop], key);
+    }
   }
 
-  return result;
+  return count;
 }
 
-console.log(chunkArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 3));
-
-console.log(chunkArray(['a', 'b', 'c', 'd', 'e', 'f'], 3));
+console.log(
+  countOccurrences(
+    { model: 'Bugatti', steer: { model: 'HANKOOK', size: 30 } },
+    'model'
+  )
+);
