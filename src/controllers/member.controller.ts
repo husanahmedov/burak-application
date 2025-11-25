@@ -120,6 +120,23 @@ memberController.getTopUsers = async (request: Request, response: Response) => {
   }
 };
 
+memberController.getRestaurant = async (
+  request: Request,
+  response: Response
+) => {
+  try {
+    console.log('Get Restaurant Process Loaded');
+    const result = await memberService.getRestaurant();
+    response.status(HttpCode.OK).json(result);
+  } catch (error) {
+    console.log('Error in getting restaurant', error);
+    if (error instanceof Errors) response.status(error.code).json(error);
+    else {
+      response.status(Errors.standard.code).json(Errors.standard);
+    }
+  }
+};
+
 memberController.verifyAuth = async (
   req: ExtendedRequest,
   res: Response,

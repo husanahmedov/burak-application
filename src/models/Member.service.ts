@@ -87,6 +87,16 @@ class MemberService {
     return result;
   }
 
+  public async getRestaurant(): Promise<Member> {
+    const result = await this.memberModel
+      .findOne({
+        memberType: MemberType.RESTAURANT,
+      })
+      .exec();
+    if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+    return result;
+  }
+
   // SSR
 
   public async processSignup(input: MemberInput): Promise<Member> {
