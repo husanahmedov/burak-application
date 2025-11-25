@@ -5,6 +5,7 @@ import {
   LoginInput,
   Member,
   MemberInput,
+  MemberUpdateInput,
 } from '../lib/member';
 import MemberService from '../models/Member.service';
 import Errors, { HttpCode, Message } from '../lib/Errors';
@@ -83,6 +84,25 @@ memberController.getMemberDetail = async (
     console.log('Error: logout', err);
     if (err instanceof Errors) response.status(err.code).json(err);
     else response.status(Errors.standard.code).json(Errors.standard);
+  }
+};
+
+memberController.updateMember = async (
+  request: ExtendedRequest,
+  response: Response
+) => {
+  try {
+    console.log('Update Member Process Loaded');
+    const input: MemberUpdateInput = request.body;
+    if (request.file) input.memberImage = request.file.path.replace(/\\/g, '/');
+    const result = await memberService.updateMember(request.member, input);
+    response.status(HttpCode.OK).json(result);
+  } catch (error) {
+    console.log('Error in the update member', error);
+    if (error instanceof Errors) response.status(error.code).json(error);
+    else {
+      response.status(Errors.standard.code).json(Errors.standard);
+    }
   }
 };
 
