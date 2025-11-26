@@ -23,6 +23,6 @@ router
     memberController.updateMember
   )
   .get('/member/top-users', memberController.getTopUsers)
-  .get('/member/get-restaurant', memberController.getRestaurant);
+  .get('/member/restaurant', memberController.getRestaurant);
 
 export default router;
