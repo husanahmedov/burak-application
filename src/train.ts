@@ -144,25 +144,40 @@
 
 // console.log(chunkArray(['a', 'b', 'c', 'd', 'e', 'f'], 3));
 
-function countOccurrences(obj: any, key: string): number {
-  let count = 0;
+// function countOccurrences(obj: any, key: string): number {
+//   let count = 0;
 
-  for (const prop in obj) {
-    if (prop === key) {
-      count++;
-    }
+//   for (const prop in obj) {
+//     if (prop === key) {
+//       count++;
+//     }
 
-    if (typeof obj[prop] === 'object' && obj[prop] !== null) {
-      count += countOccurrences(obj[prop], key);
+//     if (typeof obj[prop] === 'object' && obj[prop] !== null) {
+//       count += countOccurrences(obj[prop], key);
+//     }
+//   }
+
+//   return count;
+// }
+
+// console.log(
+//   countOccurrences(
+//     { model: 'Bugatti', steer: { model: 'HANKOOK', size: 30 } },
+//     'model'
+//   )
+// );
+
+function findIntersectionNumbers(arr1: number[], arr2: number[]): number[] {
+  const set1 = new Set(arr1);
+  const intersection: number[] = [];
+
+  for (const num of arr2) {
+    if (set1.has(num)) {
+      intersection.push(num);
     }
   }
 
-  return count;
+  return intersection;
 }
 
-console.log(
-  countOccurrences(
-    { model: 'Bugatti', steer: { model: 'HANKOOK', size: 30 } },
-    'model'
-  )
-);
+console.log(findIntersectionNumbers([1, 2, 3, 4], [3, 4, 5, 6]));
