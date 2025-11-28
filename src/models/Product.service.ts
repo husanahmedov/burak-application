@@ -10,11 +10,19 @@ import { shapeIntoMongooseObjectId } from '../lib/config';
 import { ProductStatus } from '../lib/enum/product.enum';
 import { T } from '../lib/types/common';
 
+import { ObjectId } from 'mongoose';
+import { ViewInput } from '../lib/types/view';
+import { ViewGroup } from '../lib/enum/view.enum';
+
+import ViewService from './View.service';
+
 class ProductService {
   private readonly productModel;
+  private readonly viewService;
 
   constructor() {
     this.productModel = ProductModel;
+    this.viewService = new ViewService();
   }
 
   public async getProducts(inquiry: ProductInquiry): Promise<Product[]> {
@@ -43,6 +51,38 @@ class ProductService {
 
     if (!result.length) {
       throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+    }
+    return result;
+  }
+
+  public async getProduct(
+    memberId: ObjectId | null,
+    id: string
+  ): Promise<Product> {
+    const productId = shapeIntoMongooseObjectId(id);
+
+    let result = await this.productModel
+      .findOne({ _id: productId, productStatus: ProductStatus.PROCESS })
+      .exec();
+    if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+
+    if (memberId) {
+      const input: ViewInput = {
+        memberId: memberId, // who is viewing
+        viewRefId: productId, // which product is being viewed
+        viewGroup: ViewGroup.PRODUCT, // viewing a product
+      };
+      const existView = await this.viewService.checkViewExistance(input);
+      if (!existView) {
+        console.log('Creating new view record for product');
+        await this.viewService.insertMemberView(input);
+
+        result = await this.productModel.findOneAndUpdate(
+          productId,
+          { $inc: { productView: +1 } },
+          { new: true }
+        );
+      }
     }
     return result;
   }

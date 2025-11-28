@@ -25,6 +25,11 @@ router
   )
   .get('/member/top-users', memberController.getTopUsers)
   .get('/member/get-restaurant', memberController.getRestaurant)
-  .get('/product/all', productController.getProducts);
+  .get('/product/all', productController.getProducts)
+  .get(
+    '/product/:id',
+    memberController.retrieveAuth,
+    productController.getProduct
+  );
 
 export default router;
