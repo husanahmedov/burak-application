@@ -9,9 +9,9 @@ const router = express.Router();
 
 /** MEMBER **/
 router
-  .post('/login', memberController.login)
-  .post('/logout', memberController.verifyAuth, memberController.logout)
-  .post('/signup', memberController.signup)
+  .post('/member/login', memberController.login)
+  .post('/member/logout', memberController.verifyAuth, memberController.logout)
+  .post('/member/signup', memberController.signup)
   .get(
     '/member/detail',
     memberController.verifyAuth,
