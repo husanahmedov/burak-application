@@ -2,16 +2,49 @@ import Errors, { HttpCode, Message } from '../lib/Errors';
 import {
   Product,
   ProductInput,
+  ProductInquiry,
   ProductUpdateInput,
 } from '../lib/types/products';
 import ProductModel from '../schema/Product.model';
 import { shapeIntoMongooseObjectId } from '../lib/config';
+import { ProductStatus } from '../lib/enum/product.enum';
+import { T } from '../lib/types/common';
 
 class ProductService {
   private readonly productModel;
 
   constructor() {
     this.productModel = ProductModel;
+  }
+
+  public async getProducts(inquiry: ProductInquiry): Promise<Product[]> {
+    const match: T = { productStatus: ProductStatus.PROCESS };
+
+    if (inquiry.search) {
+      match.productName = { $regex: new RegExp(inquiry.search, 'i') };
+    }
+
+    if (inquiry.productCollection) {
+      match.productCollection = inquiry.productCollection;
+    }
+
+    const sort: T =
+      inquiry.order === 'productPrice'
+        ? { [inquiry.order]: 1 }
+        : { [inquiry.order]: -1 };
+    const result = await this.productModel
+      .aggregate([
+        { $match: match },
+        { $sort: sort },
+        { $skip: (inquiry.page * 1 - 1) * inquiry.limit },
+        { $limit: inquiry.limit * 1 },
+      ])
+      .exec();
+
+    if (!result.length) {
+      throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+    }
+    return result;
   }
 
   /** SPA */
@@ -35,7 +68,7 @@ class ProductService {
 
   public async updateChosenProduct(
     id: string,
-    input: ProductUpdateInput,
+    input: ProductUpdateInput
   ): Promise<Product> {
     id = shapeIntoMongooseObjectId(id);
     const result = await this.productModel
