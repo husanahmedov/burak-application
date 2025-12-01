@@ -167,17 +167,25 @@
 //   )
 // );
 
-function findIntersectionNumbers(arr1: number[], arr2: number[]): number[] {
-  const set1 = new Set(arr1);
-  const intersection: number[] = [];
+// function findIntersectionNumbers(arr1: number[], arr2: number[]): number[] {
+//   const set1 = new Set(arr1);
+//   const intersection: number[] = [];
 
-  for (const num of arr2) {
-    if (set1.has(num)) {
-      intersection.push(num);
-    }
-  }
+//   for (const num of arr2) {
+//     if (set1.has(num)) {
+//       intersection.push(num);
+//     }
+//   }
 
-  return intersection;
+//   return intersection;
+// }
+
+// console.log(findIntersectionNumbers([1, 2, 3, 4], [3, 4, 5, 6]));
+
+function sumEvens(numbers: number[]): number {
+  return numbers.reduce((sum, num) => {
+    return num % 2 === 0 ? sum + num : sum;
+  }, 0);
 }
 
-console.log(findIntersectionNumbers([1, 2, 3, 4], [3, 4, 5, 6]));
+console.log(sumEvens([1, 2, 3]));
