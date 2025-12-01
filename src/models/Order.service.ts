@@ -1,7 +1,7 @@
 import OrderItemModel from '../schema/OrderItem.model';
 import OrderModel from '../schema/Order.model';
 import { Member } from '../lib/member';
-import { Order, OrderItemInput } from '../lib/types/order';
+import { Order, OrderInquiry, OrderItemInput } from '../lib/types/order';
 import { shapeIntoMongooseObjectId } from '../lib/config';
 import Errors, { HttpCode, Message } from '../lib/Errors';
 import { ObjectId } from 'mongoose';
@@ -54,6 +54,43 @@ class OrderService {
     });
 
     const orderItemState = await Promise.all(promisedList);
+  }
+
+  public async getMyOrders(
+    member: Member,
+    inquiry: OrderInquiry
+  ): Promise<Order[]> {
+    const memberId = shapeIntoMongooseObjectId(member._id);
+    const matches = { memberId: memberId, orderStatus: inquiry.orderStatus };
+
+    const result = await this.orderModel
+      .aggregate([
+        { $match: matches },
+        { $sort: { updatedAt: -1 } },
+        { $skip: (inquiry.page - 1) * inquiry.limit },
+        { $limit: inquiry.limit },
+        {
+          $lookup: {
+            from: 'orderItems',
+            localField: '_id',
+            foreignField: 'orderId',
+            as: 'orderItems',
+          },
+        },
+        {
+          $lookup: {
+            from: 'products',
+            localField: 'orderItems.productId',
+            foreignField: '_id',
+            as: 'productData',
+          },
+        },
+      ])
+      .exec();
+    if (!result.length)
+      throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND);
+
+    return result;
   }
 }
 
