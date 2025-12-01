@@ -40,6 +40,11 @@ router
     memberController.verifyAuth,
     orderController.createOrder
   )
-  .get('/order/all', memberController.verifyAuth, orderController.getMyOrders);
+  .get('/order/all', memberController.verifyAuth, orderController.getMyOrders)
+  .post(
+    '/order/update',
+    memberController.verifyAuth,
+    orderController.updateOrder
+  );
 
 export default router;
