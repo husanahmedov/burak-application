@@ -182,10 +182,17 @@
 
 // console.log(findIntersectionNumbers([1, 2, 3, 4], [3, 4, 5, 6]));
 
-function sumEvens(numbers: number[]): number {
-  return numbers.reduce((sum, num) => {
-    return num % 2 === 0 ? sum + num : sum;
-  }, 0);
+// function sumEvens(numbers: number[]): number {
+//   return numbers.reduce((sum, num) => {
+//     return num % 2 === 0 ? sum + num : sum;
+//   }, 0);
+// }
+
+// console.log(sumEvens([1, 2, 3]));
+
+function celsiusToFahrenheit(celsius: number): number {
+  return (celsius * 9) / 5 + 32;
 }
 
-console.log(sumEvens([1, 2, 3]));
+console.log(celsiusToFahrenheit(0));
+console.log(celsiusToFahrenheit(100));
