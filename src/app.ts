@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import routerAdmin from './router-admin';
 import { MORGAN_FORMAT } from './lib/config';
 import { T } from './lib/types/common';
+import cors from 'cors';
 
 import session from 'express-session';
 import ConnectMongoDB from 'connect-mongodb-session';
@@ -19,9 +20,11 @@ const store = new MongoDBStore({
 /** 1.ENTRANCE **/
 const app = express();
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/uploads', express.static('./uploads'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors({ credentials: true, origin: true }));
 app.use(morgan(MORGAN_FORMAT));
 
 /** 2.SESSIONS **/
