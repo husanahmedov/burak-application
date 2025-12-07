@@ -48,6 +48,7 @@
 // };
 //
 // console.log(findLongestString('I solved this algorithm with myself'));
+
 //
 // interface NumberSquare {
 //   number: number;
@@ -190,9 +191,20 @@
 
 // console.log(sumEvens([1, 2, 3]));
 
-function celsiusToFahrenheit(celsius: number): number {
-  return (celsius * 9) / 5 + 32;
-}
+// function celsiusToFahrenheit(celsius: number): number {
+//   return (celsius * 9) / 5 + 32;
+// }
 
-console.log(celsiusToFahrenheit(0));
-console.log(celsiusToFahrenheit(100));
+// console.log(celsiusToFahrenheit(0));
+// console.log(celsiusToFahrenheit(100));
+
+const changeNumberInArray = (
+  index: number,
+  arr: number[],
+  newValue: number
+): number[] => {
+  arr[index] = newValue;
+  return arr;
+};
+
+console.log(changeNumberInArray(1, [1, 3, 7, 2], 2)); // [1, 2, 7, 2]
