@@ -198,13 +198,19 @@
 // console.log(celsiusToFahrenheit(0));
 // console.log(celsiusToFahrenheit(100));
 
-const changeNumberInArray = (
-  index: number,
-  arr: number[],
-  newValue: number
-): number[] => {
-  arr[index] = newValue;
-  return arr;
+// const changeNumberInArray = (
+//   index: number,
+//   arr: number[],
+//   newValue: number
+// ): number[] => {
+//   arr[index] = newValue;
+//   return arr;
+// };
+
+// console.log(changeNumberInArray(1, [1, 3, 7, 2], 2)); // [1, 2, 7, 2]
+
+const removeDuplicate = (str: string): string => {
+  return [...new Set(str)].join('');
 };
 
-console.log(changeNumberInArray(1, [1, 3, 7, 2], 2)); // [1, 2, 7, 2]
+console.log(removeDuplicate('stringg')); // 'string'
