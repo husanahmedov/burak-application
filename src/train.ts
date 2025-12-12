@@ -209,8 +209,23 @@
 
 // console.log(changeNumberInArray(1, [1, 3, 7, 2], 2)); // [1, 2, 7, 2]
 
-const removeDuplicate = (str: string): string => {
-  return [...new Set(str)].join('');
+// const removeDuplicate = (str: string): string => {
+//   return [...new Set(str)].join('');
+// };
+
+// console.log(removeDuplicate('stringg')); // 'string'
+
+// /**
+//  * @param str String to capitalize
+//  * capitalizeWords()
+//  */
+const capitalizeWords = (str: string): string => {
+  return str
+    .split(' ')
+    .map((word) =>
+      word.length > 2 ? word.charAt(0).toUpperCase() + word.slice(1) : word
+    )
+    .join(' ');
 };
 
-console.log(removeDuplicate('stringg')); // 'string'
+console.log(capitalizeWords('name should be a string'));
