@@ -219,13 +219,18 @@
 //  * @param str String to capitalize
 //  * capitalizeWords()
 //  */
-const capitalizeWords = (str: string): string => {
-  return str
-    .split(' ')
-    .map((word) =>
-      word.length > 2 ? word.charAt(0).toUpperCase() + word.slice(1) : word
-    )
-    .join(' ');
+// const capitalizeWords = (str: string): string => {
+//   return str
+//     .split(' ')
+//     .map((word) =>
+//       word.length > 2 ? word.charAt(0).toUpperCase() + word.slice(1) : word
+//     )
+//     .join(' ');
+// };
+
+// console.log(capitalizeWords('name should be a string'));
+const toSnakeCase = (str: string): string => {
+  return str.toLowerCase().split(' ').join('_');
 };
 
-console.log(capitalizeWords('name should be a string'));
+console.log(toSnakeCase('name should be a string'));
