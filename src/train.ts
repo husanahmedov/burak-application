@@ -229,8 +229,22 @@
 // };
 
 // console.log(capitalizeWords('name should be a string'));
-const toSnakeCase = (str: string): string => {
-  return str.toLowerCase().split(' ').join('_');
-};
+// const toSnakeCase = (str: string): string => {
+//   return str.toLowerCase().split(' ').join('_');
+// };
 
-console.log(toSnakeCase('name should be a string'));
+// console.log(toSnakeCase('name should be a string'));
+
+function findDisappearedNumbers(arr: number[]): number[] {
+  const max = Math.max(...arr);
+  const set = new Set(arr);
+  const result: number[] = [];
+  for (let i = 1; i <= max; i++) {
+    if (!set.has(i)) {
+      result.push(i);
+    }
+  }
+  return result;
+}
+
+console.log(findDisappearedNumbers([1, 3, 4, 7]));
