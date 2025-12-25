@@ -250,12 +250,18 @@
 // console.log(findDisappearedNumbers([1, 3, 4, 7]));
 
 // TASK ZI
-function delayHelloWorld(message: string): Promise<string> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(message);
-    }, 3000);
-  });
+//function delayHelloWorld(message: string): Promise<string> {
+//  return new Promise((resolve) => {
+//    setTimeout(() => {
+//      resolve(message);
+//    }, 3000);
+//  });
+//}
+
+// delayHelloWorld('Hello World!').then(console.log);
+
+function reduceNestedArray(arr: any[]): number {
+  return arr.flat(Infinity).reduce((a, b) => a + b, 0);
 }
 
-delayHelloWorld('Hello World!').then(console.log);
+console.log(reduceNestedArray([1, [1, 2, [4]]]));
