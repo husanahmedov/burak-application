@@ -235,16 +235,27 @@
 
 // console.log(toSnakeCase('name should be a string'));
 
-function findDisappearedNumbers(arr: number[]): number[] {
-  const max = Math.max(...arr);
-  const set = new Set(arr);
-  const result: number[] = [];
-  for (let i = 1; i <= max; i++) {
-    if (!set.has(i)) {
-      result.push(i);
-    }
-  }
-  return result;
+// function findDisappearedNumbers(arr: number[]): number[] {
+//   const max = Math.max(...arr);
+//   const set = new Set(arr);
+//   const result: number[] = [];
+//   for (let i = 1; i <= max; i++) {
+//     if (!set.has(i)) {
+//       result.push(i);
+//     }
+//   }
+//   return result;
+// }
+
+// console.log(findDisappearedNumbers([1, 3, 4, 7]));
+
+// TASK ZI
+function delayHelloWorld(message: string): Promise<string> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(message);
+    }, 3000);
+  });
 }
 
-console.log(findDisappearedNumbers([1, 3, 4, 7]));
+delayHelloWorld('Hello World!').then(console.log);
