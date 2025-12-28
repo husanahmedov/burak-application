@@ -260,8 +260,21 @@
 
 // delayHelloWorld('Hello World!').then(console.log);
 
-function reduceNestedArray(arr: any[]): number {
-  return arr.flat(Infinity).reduce((a, b) => a + b, 0);
+// function reduceNestedArray(arr: any[]): number {
+//   return arr.flat(Infinity).reduce((a, b) => a + b, 0);
+// }
+
+// console.log(reduceNestedArray([1, [1, 2, [4]]]));
+
+function printNumbers() {
+  let count = 1;
+  const interval = setInterval(() => {
+    console.log(count);
+    count++;
+    if (count > 5) {
+      clearInterval(interval);
+    }
+  }, 1000);
 }
 
-console.log(reduceNestedArray([1, [1, 2, [4]]]));
+printNumbers();
