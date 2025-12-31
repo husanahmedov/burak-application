@@ -266,15 +266,22 @@
 
 // console.log(reduceNestedArray([1, [1, 2, [4]]]));
 
-function printNumbers() {
-  let count = 1;
-  const interval = setInterval(() => {
-    console.log(count);
-    count++;
-    if (count > 5) {
-      clearInterval(interval);
-    }
-  }, 1000);
+// function printNumbers() {
+//   let count = 1;
+//   const interval = setInterval(() => {
+//     console.log(count);
+//     count++;
+//     if (count > 5) {
+//       clearInterval(interval);
+//     }
+//   }, 1000);
+// }
+
+// printNumbers();
+
+function stringToKebab(str: string): string {
+  // I added a bit complexity to the function
+  return str.toLowerCase().replace(/\s+/g, '-');
 }
 
-printNumbers();
+console.log(stringToKebab('I love Kebab and nodejs too'));
