@@ -279,9 +279,20 @@
 
 // printNumbers();
 
-function stringToKebab(str: string): string {
-  // I added a bit complexity to the function
-  return str.toLowerCase().replace(/\s+/g, '-');
+// function stringToKebab(str: string): string {
+//   // I added a bit complexity to the function
+//   return str.toLowerCase().replace(/\s+/g, '-');
+// }
+
+// console.log(stringToKebab('I love Kebab and nodejs too'));
+
+function squareDigits(num: number): string {
+  return num
+    .toString()
+    .split('')
+    .map((digit) => Math.pow(Number(digit), 2))
+    .join('');
 }
 
-console.log(stringToKebab('I love Kebab and nodejs too'));
+console.log(squareDigits(9119));
+console.log(squareDigits(765)); 
