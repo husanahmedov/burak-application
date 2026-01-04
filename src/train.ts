@@ -286,13 +286,21 @@
 
 // console.log(stringToKebab('I love Kebab and nodejs too'));
 
-function squareDigits(num: number): string {
-  return num
-    .toString()
-    .split('')
-    .map((digit) => Math.pow(Number(digit), 2))
-    .join('');
+// function squareDigits(num: number): string {
+//   return num
+//     .toString()
+//     .split('')
+//     .map((digit) => Math.pow(Number(digit), 2))
+//     .join('');
+// }
+
+// console.log(squareDigits(9119));
+// console.log(squareDigits(765));
+
+// TASK ZN
+function rotateArray(arr: any[], index: number): any[] {
+  const rotatePoint = arr.length - index;
+  return [...arr.slice(rotatePoint), ...arr.slice(0, rotatePoint)];
 }
 
-console.log(squareDigits(9119));
-console.log(squareDigits(765)); 
+console.log(rotateArray([1, 2, 3, 4, 5, 6], 3));
