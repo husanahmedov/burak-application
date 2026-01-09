@@ -298,9 +298,28 @@
 // console.log(squareDigits(765));
 
 // TASK ZN
-function rotateArray(arr: any[], index: number): any[] {
-  const rotatePoint = arr.length - index;
-  return [...arr.slice(rotatePoint), ...arr.slice(0, rotatePoint)];
+// function rotateArray(arr: any[], index: number): any[] {
+//   const rotatePoint = arr.length - index;
+//   return [...arr.slice(rotatePoint), ...arr.slice(0, rotatePoint)];
+// }
+
+// console.log(rotateArray([1, 2, 3, 4, 5, 6], 3));
+
+// TASK ZO
+function areParenthesesBalanced(str: string): boolean {
+  let openCount = 0;
+  let closeCount = 0;
+
+  for (const char of str) {
+    if (char === '(') {
+      openCount++;
+    } else if (char === ')') {
+      closeCount++;
+    }
+  }
+
+  return openCount === closeCount;
 }
 
-console.log(rotateArray([1, 2, 3, 4, 5, 6], 3));
+console.log(areParenthesesBalanced('string()ichida(qavslar)soni()balansda'));
+console.log(areParenthesesBalanced('string()ichida(qavslar)soni(balansda'));
