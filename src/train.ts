@@ -306,20 +306,41 @@
 // console.log(rotateArray([1, 2, 3, 4, 5, 6], 3));
 
 // TASK ZO
-function areParenthesesBalanced(str: string): boolean {
-  let openCount = 0;
-  let closeCount = 0;
+// function areParenthesesBalanced(str: string): boolean {
+//   let openCount = 0;
+//   let closeCount = 0;
+
+//   for (const char of str) {
+//     if (char === '(') {
+//       openCount++;
+//     } else if (char === ')') {
+//       closeCount++;
+//     }
+//   }
+
+//   return openCount === closeCount;
+// }
+
+// console.log(areParenthesesBalanced('string()ichida(qavslar)soni()balansda'));
+// console.log(areParenthesesBalanced('string()ichida(qavslar)soni(balansda'));
+
+// TASK ZP
+function countNumberAndLetters(str: string): {
+  number: number;
+  letter: number;
+} {
+  let numberCount = 0;
+  let letterCount = 0;
 
   for (const char of str) {
-    if (char === '(') {
-      openCount++;
-    } else if (char === ')') {
-      closeCount++;
+    if (/[0-9]/.test(char)) {
+      numberCount++;
+    } else if (/[a-zA-Z]/.test(char)) {
+      letterCount++;
     }
   }
 
-  return openCount === closeCount;
+  return { number: numberCount, letter: letterCount };
 }
 
-console.log(areParenthesesBalanced('string()ichida(qavslar)soni()balansda'));
-console.log(areParenthesesBalanced('string()ichida(qavslar)soni(balansda'));
+console.log(countNumberAndLetters('string152%¥'));
