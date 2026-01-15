@@ -346,21 +346,36 @@
 // console.log(countNumberAndLetters('string152%¥'));
 
 // TASK ZQ
-function findDuplicates(arr: number[]): number[] {
-  const countMap: Record<number, number> = {};
-  const duplicates: number[] = [];
+// function findDuplicates(arr: number[]): number[] {
+//   const countMap: Record<number, number> = {};
+//   const duplicates: number[] = [];
 
-  for (const num of arr) {
-    countMap[num] = (countMap[num] || 0) + 1;
+//   for (const num of arr) {
+//     countMap[num] = (countMap[num] || 0) + 1;
+//   }
+
+//   for (const num in countMap) {
+//     if (countMap[num] >= 2) {
+//       duplicates.push(Number(num));
+//     }
+//   }
+
+//   return duplicates;
+// }
+
+// console.log(findDuplicates([1, 2, 3, 4, 5, 4, 3, 4]));
+
+// TASK ZR
+function areArraysEqual(arr1: number[], arr2: number[]): boolean {
+  if (arr1.length !== arr2.length) {
+    return false;
   }
 
-  for (const num in countMap) {
-    if (countMap[num] >= 2) {
-      duplicates.push(Number(num));
-    }
-  }
+  const sortedArr1 = [...arr1].sort((a, b) => a - b);
+  const sortedArr2 = [...arr2].sort((a, b) => a - b);
 
-  return duplicates;
+  return sortedArr1.every((value, index) => value === sortedArr2[index]);
 }
 
-console.log(findDuplicates([1, 2, 3, 4, 5, 4, 3, 4]));
+console.log(areArraysEqual([1, 2, 3], [3, 1, 2]));
+console.log(areArraysEqual([1, 2, 3], [1, 2, 4]));
