@@ -325,22 +325,42 @@
 // console.log(areParenthesesBalanced('string()ichida(qavslar)soni(balansda'));
 
 // TASK ZP
-function countNumberAndLetters(str: string): {
-  number: number;
-  letter: number;
-} {
-  let numberCount = 0;
-  let letterCount = 0;
+// function countNumberAndLetters(str: string): {
+//   number: number;
+//   letter: number;
+// } {
+//   let numberCount = 0;
+//   let letterCount = 0;
 
-  for (const char of str) {
-    if (/[0-9]/.test(char)) {
-      numberCount++;
-    } else if (/[a-zA-Z]/.test(char)) {
-      letterCount++;
+//   for (const char of str) {
+//     if (/[0-9]/.test(char)) {
+//       numberCount++;
+//     } else if (/[a-zA-Z]/.test(char)) {
+//       letterCount++;
+//     }
+//   }
+
+//   return { number: numberCount, letter: letterCount };
+// }
+
+// console.log(countNumberAndLetters('string152%¥'));
+
+// TASK ZQ
+function findDuplicates(arr: number[]): number[] {
+  const countMap: Record<number, number> = {};
+  const duplicates: number[] = [];
+
+  for (const num of arr) {
+    countMap[num] = (countMap[num] || 0) + 1;
+  }
+
+  for (const num in countMap) {
+    if (countMap[num] >= 2) {
+      duplicates.push(Number(num));
     }
   }
 
-  return { number: numberCount, letter: letterCount };
+  return duplicates;
 }
 
-console.log(countNumberAndLetters('string152%¥'));
+console.log(findDuplicates([1, 2, 3, 4, 5, 4, 3, 4]));
