@@ -366,16 +366,35 @@
 // console.log(findDuplicates([1, 2, 3, 4, 5, 4, 3, 4]));
 
 // TASK ZR
-function areArraysEqual(arr1: number[], arr2: number[]): boolean {
-  if (arr1.length !== arr2.length) {
-    return false;
+// function areArraysEqual(arr1: number[], arr2: number[]): boolean {
+//   if (arr1.length !== arr2.length) {
+//     return false;
+//   }
+
+//   const sortedArr1 = [...arr1].sort((a, b) => a - b);
+//   const sortedArr2 = [...arr2].sort((a, b) => a - b);
+
+//   return sortedArr1.every((value, index) => value === sortedArr2[index]);
+// }
+
+// console.log(areArraysEqual([1, 2, 3], [3, 1, 2]));
+// console.log(areArraysEqual([1, 2, 3], [1, 2, 4]));
+
+// TASK ZS
+function singleNumber(arr: number[]): number | undefined {
+  const countMap: Record<number, number> = {};
+
+  for (const num of arr) {
+    countMap[num] = (countMap[num] || 0) + 1;
   }
 
-  const sortedArr1 = [...arr1].sort((a, b) => a - b);
-  const sortedArr2 = [...arr2].sort((a, b) => a - b);
+  for (const num in countMap) {
+    if (countMap[num] === 1) {
+      return Number(num);
+    }
+  }
 
-  return sortedArr1.every((value, index) => value === sortedArr2[index]);
+  return undefined;
 }
 
-console.log(areArraysEqual([1, 2, 3], [3, 1, 2]));
-console.log(areArraysEqual([1, 2, 3], [1, 2, 4]));
+console.log(singleNumber([4, 2, 1, 2, 1]));
