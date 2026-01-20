@@ -381,20 +381,39 @@
 // console.log(areArraysEqual([1, 2, 3], [1, 2, 4]));
 
 // TASK ZS
-function singleNumber(arr: number[]): number | undefined {
-  const countMap: Record<number, number> = {};
+// function singleNumber(arr: number[]): number | undefined {
+//   const countMap: Record<number, number> = {};
 
-  for (const num of arr) {
-    countMap[num] = (countMap[num] || 0) + 1;
+//   for (const num of arr) {
+//     countMap[num] = (countMap[num] || 0) + 1;
+//   }
+
+//   for (const num in countMap) {
+//     if (countMap[num] === 1) {
+//       return Number(num);
+//     }
+//   }
+
+//   return undefined;
+// }
+
+// console.log(singleNumber([4, 2, 1, 2, 1]));
+
+// TASK ZT
+function firstUniqueCharIndex(str: string): number {
+  const charCount: Record<string, number> = {};
+
+  for (const char of str) {
+    charCount[char] = (charCount[char] || 0) + 1;
   }
 
-  for (const num in countMap) {
-    if (countMap[num] === 1) {
-      return Number(num);
+  for (let i = 0; i < str.length; i++) {
+    if (charCount[str[i]] === 1) {
+      return i;
     }
   }
 
-  return undefined;
+  return -1;
 }
 
-console.log(singleNumber([4, 2, 1, 2, 1]));
+console.log(firstUniqueCharIndex('stamp')); // 0
