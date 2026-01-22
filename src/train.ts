@@ -400,20 +400,43 @@
 // console.log(singleNumber([4, 2, 1, 2, 1]));
 
 // TASK ZT
-function firstUniqueCharIndex(str: string): number {
-  const charCount: Record<string, number> = {};
+// function firstUniqueCharIndex(str: string): number {
+//   const charCount: Record<string, number> = {};
 
-  for (const char of str) {
-    charCount[char] = (charCount[char] || 0) + 1;
+//   for (const char of str) {
+//     charCount[char] = (charCount[char] || 0) + 1;
+//   }
+
+//   for (let i = 0; i < str.length; i++) {
+//     if (charCount[str[i]] === 1) {
+//       return i;
+//     }
+//   }
+
+//   return -1;
+// }
+
+// console.log(firstUniqueCharIndex('stamp')); // 0
+
+// TASK ZU
+function sumOfUnique(arr: number[]): number {
+  const countMap: Record<number, number> = {};
+
+  for (const num of arr) {
+    countMap[num] = (countMap[num] || 0) + 1;
   }
 
-  for (let i = 0; i < str.length; i++) {
-    if (charCount[str[i]] === 1) {
-      return i;
+  // Sum up numbers that appear only once
+  let sum = 0;
+  for (const num in countMap) {
+    if (countMap[num] === 1) {
+      sum += Number(num);
     }
   }
 
-  return -1;
+  return sum;
 }
 
-console.log(firstUniqueCharIndex('stamp')); // 0
+console.log(sumOfUnique([1, 2, 3, 2]));
+console.log(sumOfUnique([1, 1, 1, 1, 1]));
+console.log(sumOfUnique([1, 2, 3, 4, 5]));
